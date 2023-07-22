@@ -1,1 +1,2 @@
-# netology-patterns [![Build status](https://ci.appveyor.com/api/projects/status/47ilu3x61hr3vo0d?svg=true)](https://ci.appveyor.com/project/ItsGalinaL/netology-patterns)
+# netology-patterns2 [![Build status](https://ci.appveyor.com/api/projects/status/3l99nvisb7g9wtif?svg=true)](https://ci.appveyor.com/project/ItsGalinaL/netology-patterns2)
+
