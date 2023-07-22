@@ -25,8 +25,6 @@ class AuthTest {
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
-        System.out.println(registeredUser.getLogin());
-        System.out.println(registeredUser.getPassword());
         SelenideElement form = $(new By.ByTagName("form"));
         form.$("[data-test-id=login] input").setValue(registeredUser.getLogin());
         form.$("[data-test-id=password] input").setValue(registeredUser.getPassword());
@@ -44,8 +42,7 @@ class AuthTest {
         form.$("[data-test-id=password] input").setValue(notRegisteredUser.getPassword());
         form.$("[data-test-id=action-login]").click();
 
-        SelenideElement notification = $("[data-test-id=error-notification]");
-        notification.$("[class=notification__content]").shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"));
+        assertNotificationMessage("Ошибка! Неверно указан логин или пароль");
     }
 
     @Test
@@ -57,8 +54,7 @@ class AuthTest {
         form.$("[data-test-id=password] input").setValue(blockedUser.getPassword());
         form.$("[data-test-id=action-login]").click();
 
-        SelenideElement notification = $("[data-test-id=error-notification]");
-        notification.$("[class=notification__content]").shouldHave(Condition.exactText("Ошибка! Пользователь заблокирован"));
+        assertNotificationMessage("Ошибка! Пользователь заблокирован");
     }
 
     @Test
@@ -71,8 +67,7 @@ class AuthTest {
         form.$("[data-test-id=password] input").setValue(registeredUser.getPassword());
         form.$("[data-test-id=action-login]").click();
 
-        SelenideElement notification = $("[data-test-id=error-notification]");
-        notification.$("[class=notification__content]").shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"));
+        assertNotificationMessage("Ошибка! Неверно указан логин или пароль");
     }
 
     @Test
@@ -85,7 +80,11 @@ class AuthTest {
         form.$("[data-test-id=password] input").setValue(wrongPassword);
         form.$("[data-test-id=action-login]").click();
 
+        assertNotificationMessage("Ошибка! Неверно указан логин или пароль");
+    }
+
+    private void assertNotificationMessage(String message) {
         SelenideElement notification = $("[data-test-id=error-notification]");
-        notification.$("[class=notification__content]").shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"));
+        notification.$("[class=notification__content]").shouldHave(Condition.exactText(message));
     }
 }
